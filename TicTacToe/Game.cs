@@ -20,20 +20,25 @@ class Game
         int currentIndex = 0;
         Player? currentPlayer = null;
         
-        while(!IsThereAWinner())
+        while(true)
         {
             currentPlayer = players[currentIndex];
             currentPlayer.MakeTurn(board);
             PrintBoard();
-            if(board.IsFull())
+
+            if(IsThereAWinner()){
+                gameOutput.WriteLine($"{currentPlayer.Name} won!");
+                return;
+            }
+            else if(board.IsFull())
             {
                 gameOutput.WriteLine("Draw!!!");
                 return;
             }
+            
             currentIndex = Math.Abs(currentIndex - 1);
         }
         
-        gameOutput.WriteLine($"{currentPlayer.Name} won!");
     }
 
     private void PrintBoard()
